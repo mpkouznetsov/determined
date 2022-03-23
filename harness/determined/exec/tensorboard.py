@@ -110,10 +110,11 @@ def start_tensorboard(
         # Get fetcher and perform initial fetch
         fetcher = fetchers.build(config, storage_paths, local_dir)
         num_fetched_files = fetcher.fetch_new()
+        logger.info(f"fetched {num_fetched_files} from {storage_paths}")
 
         # Build Tensorboard args and launch process.
         tb_args = get_tensorboard_args(tb_version, local_dir, add_tb_args)
-        logger.debug(f"tensorboard args: {tb_args}")
+        logger.info(f"tensorboard args: {tb_args}")
         tensorboard_process = subprocess.Popen(tb_args)
 
         try:
