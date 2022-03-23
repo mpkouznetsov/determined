@@ -74,6 +74,13 @@ class Training:
             self._tbd_writer.on_train_step_end(latest_batch, metrics, batch_metrics)
             self._tbd_mgr.sync()
 
+    def manual_tb_upload(self, paths: List[str]) -> None:
+        """
+        Upload data such as tensorboard profiler from workers
+        """
+        logger.info(f"Uploading data from paths={paths} (to be implemented)")
+        pass
+
     def _get_serializable_metrics(self, metrics: Dict[str, Any]) -> Set[str]:
         serializable_metrics = set()
         non_serializable_metrics = set()
@@ -176,6 +183,9 @@ class DummyTraining(Training):
         logger.debug(
             f"report_training_metrics(latest_batch={latest_batch}, batch_metrics={batch_metrics})"
         )
+
+    def manual_tb_upload(self, paths: List[str]) -> None:
+        logger.info(f"manual_tb_upload(paths={paths})")
 
     def report_validation_metrics(self, latest_batch: int, metrics: Dict[str, Any]) -> None:
         serializable_metrics = self._get_serializable_metrics(metrics)

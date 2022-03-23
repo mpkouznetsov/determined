@@ -1,6 +1,6 @@
 import abc
 import logging
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 import determined as det
 from determined import _core
@@ -138,3 +138,6 @@ class TrialContext(metaclass=abc.ABCMeta):
 
     def get_initial_batch(self) -> int:
         return self.env.latest_batch
+
+    def manual_tb_upload(self, paths: List[str]) -> None:
+        self._core.training.manual_tb_upload(paths)
