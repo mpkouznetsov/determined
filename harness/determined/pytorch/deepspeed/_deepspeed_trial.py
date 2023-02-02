@@ -559,7 +559,10 @@ class DeepSpeedTrialController(det.TrialController):
                 return {
                     "num_inputs": 0,
                     "validation_metrics": {
-                        searcher_metric_name: self.context.model_info.activation_mem_per_gpu,
+                        searcher_metric_name: 0,  # hardcoded; we have to have it
+                        "num_params": self.context.model_info.num_params,
+                        "trainable_num_params": self.context.model_info.trainable_num_params,
+                        "activation_mem_per_gpu": self.context.model_info.activation_mem_per_gpu,
                     },
                 }
             return {}

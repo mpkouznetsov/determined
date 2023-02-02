@@ -256,22 +256,25 @@ class WorkloadSequencer(workload.Source):
         # Check that the validation metrics computed by the model code
         # includes the metric used by the search method.
         searcher_metric_name = self.env.experiment_config["searcher"]["metric"]
-        if searcher_metric_name not in metrics:
-            raise RuntimeError(
-                f"Search method is configured to use metric '{searcher_metric_name}' but model "
-                f"definition returned validation metrics {list(metrics.keys())}. The metric "
-                "used by the search method must be one of the validation "
-                "metrics returned by the model definition."
-            )
+        if searcher_metric_name == "*":
+            searcher_metric = metrics
+        else:
+            if searcher_metric_name not in metrics:
+                raise RuntimeError(
+                    f"Search method is configured to use metric '{searcher_metric_name}' but model "
+                    f"definition returned validation metrics {list(metrics.keys())}. The metric "
+                    "used by the search method must be one of the validation "
+                    "metrics returned by the model definition."
+                )
 
-        # Check that the searcher metric has a scalar value so that it can be compared for
-        # search purposes. Other metrics don't have to be scalars.
-        searcher_metric = metrics[searcher_metric_name]
-        if not tensorboard.metric_writers.util.is_numerical_scalar(searcher_metric):
-            raise RuntimeError(
-                f"Searcher validation metric '{searcher_metric_name}' returned "
-                f"a non-scalar value: {searcher_metric}"
-            )
+            # Check that the searcher metric has a scalar value so that it can be compared for
+            # search purposes. Other metrics don't have to be scalars.
+            searcher_metric = metrics[searcher_metric_name]
+            if not tensorboard.metric_writers.util.is_numerical_scalar(searcher_metric):
+                raise RuntimeError(
+                    f"Searcher validation metric '{searcher_metric_name}' returned "
+                    f"a non-scalar value: {searcher_metric}"
+                )
 
         # Report to the searcher API first, so we don't end up in a situation where we die between
         # reporting to the metrics API and when we come back we refuse to repeat a validation, but
