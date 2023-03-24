@@ -44,7 +44,7 @@ require (
 	github.com/santhosh-tekuri/jsonschema/v2 v2.2.0
 	github.com/segmentio/backo-go v0.0.0-20200129164019-23eae7c10bd3 // indirect
 	github.com/sirupsen/logrus v1.8.1
-	github.com/soheilhy/cmux v0.1.4
+	github.com/soheilhy/cmux v0.1.5
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.9.0
@@ -55,7 +55,6 @@ require (
 	golang.org/x/net v0.7.0
 	google.golang.org/api v0.56.0
 	google.golang.org/grpc v1.45.0
-	google.golang.org/grpc/examples v0.0.0-20210525230658-4bae49e05b28 // indirect
 	google.golang.org/protobuf v1.28.0
 	gopkg.in/guregu/null.v3 v3.4.0
 	gopkg.in/segmentio/analytics-go.v3 v3.1.0
